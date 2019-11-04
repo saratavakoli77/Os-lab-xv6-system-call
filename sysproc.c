@@ -98,3 +98,9 @@ sys_count_num_of_digits(void)
     return -1;
   return count_num_of_digits(number);
 }
+
+int
+sys_get_parent_id(void)
+{
+  return get_parent_id();
+}

@@ -544,3 +544,10 @@ count_num_of_digits(int number)
   }
   return number_of_digits;
 }
+
+int
+get_parent_id()
+{
+  struct proc *p = myproc();
+  return p->parent->pid;
+}
