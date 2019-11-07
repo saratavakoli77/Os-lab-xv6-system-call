@@ -4,13 +4,6 @@
 
 char buf[16];
 
-void
-cnd(int num)
-{
-  int res = count_num_of_digits(num);
-  printf(1, "result is: %d\n", res);
-}
-
 int
 main(int argc, char *argv[])
 {
@@ -18,7 +11,16 @@ main(int argc, char *argv[])
     printf(1, "cnd: not enough argument\n");
     exit();
   }
+  unsigned long temp;
+  int number = atoi(argv[1]);
 
-  cnd(atoi(argv[1]));
+  asm("movl %%esi,%0":"=r"(temp));
+  asm("movl %0,%%esi"::"r"(number));
+  asm("movl $22,%eax;");
+  asm("int $0x40");
+  asm("movl %0,%%esi"::"r"(temp));
+
+  number = temp;
+  temp = number;
   exit();
 }

@@ -93,9 +93,10 @@ sys_uptime(void)
 int 
 sys_count_num_of_digits(void)
 {
-  int number;
-  if(argint(0, &number) < 0)
-    return -1;
+  int number, res;
+  asm("movl %%esi,%0":"=r"(number));
+  res = count_num_of_digits(number);
+  cprintf("count of digits : %d\n", res);
   return count_num_of_digits(number);
 }
 
