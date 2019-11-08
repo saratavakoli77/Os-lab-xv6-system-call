@@ -124,3 +124,18 @@ sys_set_sleep(void)
   //todo
   return 0;
 }
+
+int
+sys_get_date(void)
+{
+  // systemTime time, pivot;
+  // pivot.year = 2019;
+  // pivot.month = 
+  // pivot.day =
+  // pivot.hour =
+  // pivot.minute =
+  // pivot.second =
+
+  cmostime(&time);
+
+}

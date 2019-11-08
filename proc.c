@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "spinlock.h"
 #include "path.h"
+#include "date.h"
 
 struct {
   struct spinlock lock;
@@ -584,4 +585,12 @@ void
 set_sleep(int time)
 {
   //todo
+}
+
+systemTime
+get_date(void)
+{
+  systemTime time;
+  cmostime(&time);
+  return time;
 }
