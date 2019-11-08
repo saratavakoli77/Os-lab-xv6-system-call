@@ -110,19 +110,31 @@ sys_get_parent_id(void)
 int
 sys_set(void)
 {
-  indexPath = 0;
   char *newPath;
   if(argstr(0, &newPath) < 0)
     return -1;
-  if (indexPath == MAX_PATH) {
-    cprintf("Max Paths reached!\n");
-    return -1;
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  int pathLen = strlen(newPath);
+  while(pathLen) {
+    if (newPath[i] == ':') {
+      PATH[j][k+1] = '\0';
+      j++;
+      if (j >= 10) {
+        cprintf("Max Paths reached!\n");
+        break;
+      }
+      indexPath = j;
+      i++;
+      k = 0;
+    }
+    PATH[j][k] = newPath[i];
+    k++;
+    pathLen--;
+    i++;
   }
-  int i;
-  for(i = 0; i < strlen(newPath); i++) {
-    PATH[indexPath][i] = newPath[i];
-  }
-  PATH[indexPath][i+1] = '\0';
-  indexPath++;
+  PATH[j+1][k+1] = '\0';
+
   return 1;
 }
