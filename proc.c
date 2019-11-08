@@ -587,10 +587,16 @@ set_sleep(int time)
   //todo
 }
 
-systemTime
+void
 get_date(void)
 {
   systemTime time;
   cmostime(&time);
-  return time;
+  // return time;
+}
+
+void
+set_sleep_with_delay(int time)
+{
+  //todo
 }

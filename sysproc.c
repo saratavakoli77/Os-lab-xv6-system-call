@@ -121,21 +121,59 @@ sys_set(void)
 int
 sys_set_sleep(void)
 {
-  //todo
+  int n, h, m, s;
+  if(argint(0, &n) < 0)
+    return -1;
+  h = n / 3600;
+  n = n - h * 3600;
+  m = n / 60;
+  n = n - m * 60;
+  s = n;
+
+  systemTime time1, time2;
+  cmostime(&time1);
+  sti();
+  while (1) {
+    cmostime(&time2);
+    if(time2.hour == time1.hour + h && time2.minute == time1.minute + m && time2.second == time1.second + s) {
+      break;
+    }
+  }
+
   return 0;
 }
 
 int
 sys_get_date(void)
 {
-  // systemTime time, pivot;
-  // pivot.year = 2019;
-  // pivot.month = 
-  // pivot.day =
-  // pivot.hour =
-  // pivot.minute =
-  // pivot.second =
-
+  systemTime time;
   cmostime(&time);
+  int res = 1;
+  res = res*100 + time.hour;
+  res = res*100 + time.minute;
+  res = res*100 + time.second;
+  return res;
+}
 
+int
+sys_set_sleep_with_delay(void)
+{
+  int n;
+  if(argint(0, &n) < 0)
+    return -1;
+  n = n*96;
+  // char f = ' ';
+  uint ticks0;
+  ticks0 = ticks;
+  sti();
+  while (1) {
+    cprintf(" ");
+    // cprintf("\b");
+    if (ticks - ticks0 >= n) {
+      break;
+    }
+  }
+  cprintf("\n");
+
+  return 0;
 }

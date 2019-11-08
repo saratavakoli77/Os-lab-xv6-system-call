@@ -27,6 +27,8 @@ int count_num_of_digits(int);
 int get_parent_id(void);
 int set(char*);
 int set_sleep(int);
+int set_sleep_with_delay(int);
+int get_date(void);
 
 // ulib.c
 int stat(const char*, struct stat*);
