@@ -6,6 +6,7 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "path.h"
 
 int
 sys_fork(void)
@@ -104,4 +105,24 @@ int
 sys_get_parent_id(void)
 {
   return get_parent_id();
+}
+
+int
+sys_set(void)
+{
+  indexPath = 0;
+  char *newPath;
+  if(argstr(0, &newPath) < 0)
+    return -1;
+  if (indexPath == MAX_PATH) {
+    cprintf("Max Paths reached!\n");
+    return -1;
+  }
+  int i;
+  for(i = 0; i < strlen(newPath); i++) {
+    PATH[indexPath][i] = newPath[i];
+  }
+  PATH[indexPath][i+1] = '\0';
+  indexPath++;
+  return 1;
 }

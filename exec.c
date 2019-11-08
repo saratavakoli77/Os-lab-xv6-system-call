@@ -6,6 +6,7 @@
 #include "defs.h"
 #include "x86.h"
 #include "elf.h"
+#include "path.h"
 
 int
 exec(char *path, char **argv)
@@ -18,13 +19,36 @@ exec(char *path, char **argv)
   struct proghdr ph;
   pde_t *pgdir, *oldpgdir;
   struct proc *curproc = myproc();
-
+  char pathBuff[MAX_CHARS+MAX_CHARS];
+  
   begin_op();
 
   if((ip = namei(path)) == 0){
-    end_op();
-    cprintf("exec: fail\n");
-    return -1;
+    int flag = 0;
+    for(int i = 0; i < indexPath; i++) {
+      memset(pathBuff, '\0', 2*MAX_CHARS);
+      int j, k;
+      for(j = 0; j < strlen(PATH[i]); j++) {
+        pathBuff[j] = PATH[i][j];
+      }
+      if(pathBuff[0] != '/') {
+        pathBuff[j] = '/';
+        j++;
+      }
+      for(k = 0; k < strlen(path); k++) {
+        pathBuff[k+j] = path[k];
+      }
+      ip = namei(pathBuff);
+      if (ip != 0) {
+        flag = 1;
+        break;
+      }
+    }
+    if(flag == 0) {
+      end_op();
+      cprintf("exec: fail\n");
+      return -1;
+    }
   }
   ilock(ip);
   pgdir = 0;

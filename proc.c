@@ -551,3 +551,21 @@ get_parent_id()
   struct proc *p = myproc();
   return p->parent->pid;
 }
+
+// void
+// set(char* newPath)
+// {
+//   indexPath = 0;
+//   if (indexPath == MAX_PATH) {
+//     cprintf("Max Paths reached!\n");
+//     return;
+//   }
+//   strncpy(PATH[indexPath], newPath, sizeof(newPath));
+//   cprintf("index1= %d\n", indexPath);
+//   indexPath++;
+//   cprintf("index2= %d\n", indexPath);
+//     for (int i = 0; i <= indexPath; i++)
+//   {
+//       cprintf("there path is %s\n", PATH[i]);
+//   }
+// }
