@@ -113,28 +113,7 @@ sys_set(void)
   char *newPath;
   if(argstr(0, &newPath) < 0)
     return -1;
-  int i = 0;
-  int j = 0;
-  int k = 0;
-  int pathLen = strlen(newPath);
-  while(pathLen) {
-    if (newPath[i] == ':') {
-      PATH[j][k+1] = '\0';
-      j++;
-      if (j >= 10) {
-        cprintf("Max Paths reached!\n");
-        break;
-      }
-      indexPath = j;
-      i++;
-      k = 0;
-    }
-    PATH[j][k] = newPath[i];
-    k++;
-    pathLen--;
-    i++;
-  }
-  PATH[j+1][k+1] = '\0';
-
+  
+  set(newPath);
   return 1;
 }
