@@ -585,3 +585,19 @@ set_sleep(int time)
 {
   //todo
 }
+
+int
+get_children(int pid)
+{
+  struct proc *p;
+  int children = 0;
+  acquire(&ptable.lock);
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
+    if (p->parent->pid == pid) {
+      children = children*10 + p->pid;
+    }
+  }
+  
+  release(&ptable.lock);
+  return children;
+}

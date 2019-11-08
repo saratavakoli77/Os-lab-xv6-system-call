@@ -124,3 +124,13 @@ sys_set_sleep(void)
   //todo
   return 0;
 }
+
+int
+sys_get_children(void)
+{
+  int pid;
+
+  if(argint(0, &pid) < 0)
+    return -1;
+  return get_children(pid);
+}
