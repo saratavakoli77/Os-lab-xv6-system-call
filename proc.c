@@ -587,17 +587,79 @@ set_sleep(int time)
 }
 
 int
-get_children(int pid)
+get_process_children(int pid)
 {
   struct proc *p;
-  int children = 0;
+  // int children = 0;
+  int children =0;
+  // for(int i = 0; i < 10; i++) {
+  //   children[i] = 0;
+  // }
+  //int j = 0;
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
     if (p->parent->pid == pid) {
-      children = children*10 + p->pid;
+      children = children*10 +p->pid;
+     // j++;
     }
   }
   
   release(&ptable.lock);
-  return children;
+  return 1;
+}
+
+// void copyArr(int dest[100], int src[10], int index)
+// {
+//   for(int i=0; i< 10;i++)
+//   {
+//     dest[index+i] = src[i]; 
+//   }
+// }
+int num_of_degits(int num)
+{
+  int digits = 0;
+  while(num > 0)
+  {
+    num = num/10;
+    digits++;
+  }
+  return digits;
+}
+
+int
+get_children(int pid)
+{
+  int cur_pid;
+  int num_of_cur_children;
+  int cur_children;
+  int all_children = get_process_children(pid);
+  int num_of_all_children = num_of_degits(all_children);
+  int final = all_children;
+  int i=0;
+  if(num_of_all_children == 1 && all_children == 0)
+  {
+      return 0;
+  }
+  while(i <= num_of_all_children)
+  { 
+    cur_pid = all_children / (10^(num_of_all_children-1));
+    cur_children = get_process_children(cur_pid);
+    num_of_cur_children = num_of_degits(cur_children);
+    if(!(num_of_cur_children == 1 && cur_children == 0))
+    {
+      final = final* (10^num_of_cur_children) + cur_children;
+      all_children = all_children* (10^num_of_cur_children) + cur_children;
+      i = i+num_of_cur_children;
+      
+    }
+    else
+    {
+      num_of_cur_children = 0;
+    }
+    
+    all_children = all_children % (10^(num_of_all_children-1));
+    num_of_all_children = num_of_all_children + num_of_cur_children - 1;
+  }
+  return final;
+  
 }
