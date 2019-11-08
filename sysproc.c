@@ -117,3 +117,10 @@ sys_set(void)
   set(newPath);
   return 1;
 }
+
+int
+sys_set_sleep(void)
+{
+  //todo
+  return 0;
+}

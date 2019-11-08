@@ -123,6 +123,7 @@ void            yield(void);
 int             count_num_of_digits(int);
 int             get_parent_id(void);
 void            set(char*);
+void            set_sleep(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

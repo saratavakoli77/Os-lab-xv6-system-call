@@ -26,6 +26,7 @@ int uptime(void);
 int count_num_of_digits(int);
 int get_parent_id(void);
 int set(char*);
+int set_sleep(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

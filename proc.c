@@ -578,5 +578,10 @@ set(char* newPath)
     i++;
   }
   PATH[j+1][k+1] = '\0';
+}
 
+void
+set_sleep(int time)
+{
+  //todo
 }

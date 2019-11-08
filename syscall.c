@@ -106,6 +106,7 @@ extern int sys_uptime(void);
 extern int sys_count_num_of_digits(void);
 extern int sys_get_parent_id(void);
 extern int sys_set(void);
+extern int sys_set_sleep(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -131,7 +132,8 @@ static int (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_count_num_of_digits]    sys_count_num_of_digits,
 [SYS_get_parent_id]          sys_get_parent_id,
-[SYS_set]     sys_set
+[SYS_set]     sys_set,
+[SYS_set_sleep] sys_set_sleep
 };
 
 void
