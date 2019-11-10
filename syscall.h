@@ -26,3 +26,4 @@
 #define SYS_set_sleep 25
 #define SYS_get_date 26
 #define SYS_set_sleep_with_delay 27
+#define SYS_get_children 28

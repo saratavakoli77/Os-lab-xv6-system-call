@@ -109,6 +109,7 @@ extern int sys_set(void);
 extern int sys_set_sleep(void);
 extern int sys_get_date(void);
 extern int sys_set_sleep_with_delay(void);
+extern int sys_get_children(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -137,7 +138,8 @@ static int (*syscalls[])(void) = {
 [SYS_set]     sys_set,
 [SYS_set_sleep] sys_set_sleep,
 [SYS_get_date] sys_get_date,
-[SYS_set_sleep_with_delay] sys_set_sleep_with_delay
+[SYS_set_sleep_with_delay] sys_set_sleep_with_delay,
+[SYS_get_children]  sys_get_children
 };
 
 void

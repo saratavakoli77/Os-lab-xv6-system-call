@@ -125,7 +125,8 @@ int             get_parent_id(void);
 void            set(char*);
 void            set_sleep(int);
 void            set_sleep_with_delay(int);
-void      get_date(void);
+void            get_date(void);
+int             get_children(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

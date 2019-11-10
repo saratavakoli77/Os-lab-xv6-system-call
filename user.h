@@ -29,6 +29,7 @@ int set(char*);
 int set_sleep(int);
 int set_sleep_with_delay(int);
 int get_date(void);
+int get_children(int);
 
 // ulib.c
 int stat(const char*, struct stat*);
