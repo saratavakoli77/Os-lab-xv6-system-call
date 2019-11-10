@@ -161,19 +161,15 @@ sys_set_sleep_with_delay(void)
   int n;
   if(argint(0, &n) < 0)
     return -1;
-  n = n*96;
-  // char f = ' ';
+  n = n*100;
+
   uint ticks0;
   ticks0 = ticks;
-  sti();
   while (1) {
-    cprintf(" ");
-    // cprintf("\b");
+    sti();
     if (ticks - ticks0 >= n) {
       break;
     }
   }
-  cprintf("\n");
-
   return 0;
 }
