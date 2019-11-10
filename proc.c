@@ -598,36 +598,24 @@ get_date(void)
 void
 set_sleep_with_delay(int time)
 {
+}
   //todo
 int
 get_process_children(int pid)
 {
   struct proc *p;
-  // int children = 0;
   int children =0;
-  // for(int i = 0; i < 10; i++) {
-  //   children[i] = 0;
-  // }
-  //int j = 0;
   acquire(&ptable.lock);
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++) {
     if (p->parent->pid == pid) {
       children = children*10 +p->pid;
-     // j++;
     }
   }
   
   release(&ptable.lock);
-  return 1;
+  return children;
 }
 
-// void copyArr(int dest[100], int src[10], int index)
-// {
-//   for(int i=0; i< 10;i++)
-//   {
-//     dest[index+i] = src[i]; 
-//   }
-// }
 int num_of_degits(int num)
 {
   int digits = 0;
@@ -637,6 +625,15 @@ int num_of_degits(int num)
     digits++;
   }
   return digits;
+}
+
+int pow(int ten, int n)
+{
+  for(int i=0;i<n-1;i++)
+  {
+    ten = ten * ten;
+  }
+  return ten;
 }
 
 int
@@ -649,30 +646,39 @@ get_children(int pid)
   int num_of_all_children = num_of_degits(all_children);
   int final = all_children;
   int i=0;
+
   if(num_of_all_children == 1 && all_children == 0)
   {
       return 0;
   }
   while(i <= num_of_all_children)
   { 
-    cur_pid = all_children / (10^(num_of_all_children-1));
+    if(all_children < 10){
+      cur_pid = all_children;
+    }
+    else
+    {
+      cur_pid = all_children / pow(10,(num_of_all_children-1));
+    }
+    
     cur_children = get_process_children(cur_pid);
     num_of_cur_children = num_of_degits(cur_children);
-    if(!(num_of_cur_children == 1 && cur_children == 0))
+  
+    if(cur_children != 0)
     {
-      final = final* (10^num_of_cur_children) + cur_children;
-      all_children = all_children* (10^num_of_cur_children) + cur_children;
-      i = i+num_of_cur_children;
+      final = final* pow(10,num_of_cur_children) + cur_children;
+      all_children = all_children* pow(10,num_of_cur_children) + cur_children;
+       num_of_all_children = num_of_all_children + num_of_cur_children;
+      i = i+1;
       
     }
     else
     {
+      i = i+1;
       num_of_cur_children = 0;
     }
-    
-    all_children = all_children % (10^(num_of_all_children-1));
-    num_of_all_children = num_of_all_children + num_of_cur_children - 1;
+    all_children = all_children % pow(10,num_of_all_children-1);
+    num_of_all_children = num_of_all_children  - 1;
   }
   return final;
-  
 }

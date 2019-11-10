@@ -135,7 +135,9 @@ sys_set_sleep(void)
   sti();
   while (1) {
     cmostime(&time2);
-    if(time2.hour == time1.hour + h && time2.minute == time1.minute + m && time2.second == time1.second + s) {
+    if(time2.hour == time1.hour + h &&
+       time2.minute == time1.minute + m && 
+       time2.second == time1.second + s) {
       break;
     }
   }

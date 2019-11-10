@@ -2,19 +2,35 @@
 #include "stat.h"
 #include "user.h"
 
-char buf[16];
-
 int
 main(int argc, char *argv[])
 {
   int res;
-  if (fork()!=0){
-    if(fork()!=0){  
-        res = get_children(getpid());
-        printf(1, "children: %d\n", res);
-        wait();
+  if(fork() == 0)
+  {
+    if(fork()!=0)
+    {
+       wait();
+    }
+    else
+    {
+     sleep(100); 
+    }
+   
+  }
+  else {
+    if(fork()!=0){ 
+      wait();
+    }
+    else
+    {
+      sleep(500);
     }
     wait();
+  }
+  if(getpid()==6){
+    res = get_children(2);
+    printf(1, "children: %d\n", res);
   }
   exit();
 }

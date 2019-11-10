@@ -46,9 +46,7 @@ main(int argc, char *argv[])
 
   secTime = get_date(); 
   printf(1, "diff = %d\n", diff(firstTime, secTime));
-  // printf(1, "secTime = %d\n", secTime);
-
-
   
   exit();
 }
+
